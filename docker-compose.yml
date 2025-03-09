@@ -1,0 +1,18 @@
+services:
+  runner:
+    build: .
+    #image: st9f/github-runner:latest
+    #restart: always
+    environment:
+      - REPO=${REPO}
+      - TOKEN=${TOKEN}
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+    #   resources:
+    #     limits:
+    #       cpus: '0.35'
+    #       memory: 300M
+    #     reservations:
+    #       cpus: '0.25'
+    #       memory: 128M
