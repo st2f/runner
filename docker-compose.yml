@@ -6,6 +6,8 @@ services:
     environment:
       - REPO=${REPO}
       - TOKEN=${TOKEN}
+    volumes:
+      - ./cache:/cache
     deploy:
       mode: replicated
       replicas: 2
