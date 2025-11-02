@@ -11,8 +11,14 @@ RUN apt-get update -y && apt-get upgrade -y \
 # Install system packages (Node, PHP, Python, MySQL client, git, wget, unzip, etc.)
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip \
-    openssh-client rsync wget zip unzip vim git nodejs npm php php-cli php-mbstring php-curl \
-    php-zip php-xml default-mysql-client
+    openssh-client rsync wget zip unzip vim git php php-cli php-mbstring php-curl \
+    php-zip php-xml php-intl php-sqlite3 default-mysql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 24.x LTS - specific Node minor version (for reproducibility)
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get install -y nodejs=24.1.0-1nodesource1 \
+    && npm install -g npm@latest
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
